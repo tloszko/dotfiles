@@ -1,0 +1,64 @@
+#!/bin/zsh
+
+export ZSH=$HOME/.dotfiles
+
+source $HOME/antibody/antibody.zsh
+
+# mfaerevaag/wd #needed only once, what to do?
+antibody bundle <<EOBUNDLES
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-completions
+tevren/gitfast-zsh-plugin
+Tarrasch/zsh-bd
+rimraf/k
+mafredri/zsh-async
+sindresorhus/pure
+EOBUNDLES
+
+# antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
+
+# eval `boot2docker shellinit 2>/dev/null`
+
+
+# all of our zsh files
+typeset -U config_files
+config_files=($ZSH/**/*.zsh)
+
+# load the path files
+for file in ${(M)config_files:#*/path.zsh}
+do
+  source $file
+done
+
+# load everything but the path and completion files
+for file in ${${config_files:#*/path.zsh}:#*/completion.zsh}
+do
+  source $file
+done
+
+# initialize autocomplete here, otherwise functions won't be loaded
+autoload -U compinit
+compinit
+
+
+# load every completion after autocomplete loads
+for file in ${(M)config_files:#*/completion.zsh}
+do
+  source $file
+done
+
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' insert-tab pending
+
+unset config_files
+
+
+# meh:
+wd() {
+  . /Users/edhell/bin/wd/wd.sh
+}
+
+if [[ -a ~/.localrc ]]
+then
+  source ~/.localrc
+fi

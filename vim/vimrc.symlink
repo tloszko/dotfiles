@@ -1,0 +1,412 @@
+set nocompatible " no vi compatibility
+filetype on
+filetype off
+let mapleader = ","
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+
+Plugin 'gmarik/Vundle.vim' " let Vundle manage Vundle, required
+
+Plugin 'scrooloose/nerdtree'
+    " Disable the scrollbars (NERDTree)
+    set guioptions-=r
+    set guioptions-=L
+    " Keep NERDTree window fixed between multiple toggles
+    set winfixwidth
+    " NERDTree (Command-d / Leader-d)
+    map <D-esc> :NERDTreeToggle<CR>
+    map <leader><S-d> :NERDTree %:p:h<CR>
+
+
+Plugin 'scrooloose/syntastic'
+Plugin 'whatyouhide/vim-gotham'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-endwise'
+Plugin 'vim-ruby/vim-ruby'
+Plugin 'tpope/vim-rails' " commands for jumping between related files
+  " Rails plugin settigns:
+  let g:rails_menu=2
+  let g:rails_syntax=1
+  " let g:rails_tabstop=4
+
+
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-unimpaired' " required for exchange binds
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-dispatch'
+
+Plugin 'juvenn/mustache.vim'
+"Plugin 'nelstrom/vim-textobj-rubyblock' " var vir rubyblocks
+
+" Plugin 'tsaleh/vim-supertab' " tab completion
+Plugin 'ervandew/supertab'
+Plugin 'tomtom/tcomment_vim' " commenting on bind
+    nmap <D-/> :TComment<CR>
+    imap <D-/> <esc>:TComment<CR>i
+Plugin 'nathanaelkane/vim-indent-guides' " vertical guidelines
+    let g:indent_guides_enable_on_vim_startup = 1
+    let g:indent_guides_auto_colors = 0
+    " let g:indent_guides_start_level = 2
+    "let g:indent_guides_guide_size = 1
+
+Plugin 'airblade/vim-rooter' " It sets cd to the closest root with .git
+Plugin 'bling/vim-airline'
+    let g:airline_powerline_fonts = 1
+    let g:airline#extensions#tabline#enabled = 0
+    let g:airline#extensions#tabline#fnamecollapse = 0
+    let g:airline#extensions#tabline#show_close_button = 0
+    let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+    let g:airline#extensions#tabline#show_tab_type = 0
+    let g:airline#extensions#tabline#show_tab_nr = 0
+    let g:airline#extensions#tabline#show_buffers = 1
+    let g:airline_section_c = ''
+    let g:airline_section_y = ''
+    let g:airline_section_x = ''
+    " let g:airline_section_warning = ''
+    let g:airline#extensions#tabline#buffer_idx_mode = 0
+    let g:airline#extensions#hunks#enabled = 1
+
+" Plugin 'mhinz/vim-signify'
+Plugin 'airblade/vim-gitgutter'
+" let g:gitgutter_sign_added = 'xx'
+" let g:gitgutter_sign_modified = 'yy'
+" let g:gitgutter_sign_removed = 'zz'
+" let g:gitgutter_sign_removed_first_line = '^^'
+" let g:gitgutter_sign_modified_removed = 'ww'
+
+Plugin 'kien/ctrlp.vim'
+" let g:ctrlp_user_command = 'ag f %s'        " MacOSX/Linux
+let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+      \ --ignore .git
+      \ --ignore .svn
+      \ --ignore .hg
+      \ --ignore "log"
+      \ --ignore .DS_Store
+      \ --ignore "**/*.pyc"
+      \ -g ""'
+Plugin 'JazzCore/ctrlp-cmatcher'
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+
+" let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+Plugin 'sjl/gundo.vim'
+" Plugin 'bling/vim-bufferline'
+Plugin 'majutsushi/tagbar'
+    nmap <F8> :TagbarToggle<CR>
+
+Plugin 'thoughtbot/vim-rspec'
+
+Plugin 'maksimr/vim-jsbeautify'
+    map <c-f> :call JsBeautify()<cr>
+    " or
+    autocmd FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
+    " for html
+    autocmd FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+    " for css or scss
+    autocmd FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+Plugin 'tsaleh/vim-align'
+Plugin 'vim-scripts/YankRing.vim'
+    let g:yankring_replace_n_pkey = '<leader>['
+    let g:yankring_replace_n_nkey = '<leader>]'
+    let g:yankring_history_dir = '~/.vim/tmp/'
+    nmap <leader>y :YRShow<cr>
+
+Plugin 'L9'
+    Plugin 'gertjanreynaert/cobalt2-vim-theme'
+    Plugin 'uu59/vim-herokudoc-theme'
+    Plugin 'sjl/badwolf'
+    Plugin 'altercation/vim-colors-solarized'
+    Plugin 'tomasr/molokai'
+    Plugin 'zaiste/Atom'
+    Plugin 'w0ng/vim-hybrid'
+    Plugin 'chriskempson/base16-vim'
+    Plugin 'Elive/vim-colorscheme-elive'
+    Plugin 'zeis/vim-kolor'
+    Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
+
+if executable('ag')
+  Plugin 'epmatsw/ag.vim.git'
+elseif executable('ack')
+  Plugin 'mileszs/ack.vim'
+endif
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+color Tomorrow-Night-Eighties
+" color atom
+" color herokudoc-gvim
+" color cobalt2
+" color Tomorrow-Night-Blue
+" color Tomorrow
+" 
+" colorscheme solarized
+
+" color iawriter
+" set font to Monaco 14pt
+" set guifont=Bitstream_Vera_Sans_Mono:h15
+" set guifont=Pragmata_Medium:h17
+" set guifont=Cousine:h16
+" set guifont=Source_Code_Pro_for_Powerline:h18
+set guifont=Inconsolata-dz_for_Powerline:h20
+" set guifont=Literation_Mono_Powerline:h19
+" Inconsolata-dz_for_Powerline:h20
+set linespace=2
+
+ " Solarized Light
+    " highlight NonText guibg=#FDF5DC
+    if g:colors_name == 'base16-default'
+      let base16colorspace=256
+    elseif g:colors_name == 'Tomorrow'
+      autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=#eeeeee ctermbg=4
+    elseif g:colors_name == 'Tomorrow-Night-Blue'
+      autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  guibg=#393939 ctermbg=3
+    elseif g:colors_name == 'Tomorrow-Night-Eighties'
+      autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  guibg=#393939 ctermbg=3
+      autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=#2d2d2d ctermbg=4
+      autocmd VimEnter,Colorscheme * :hi SpellBad ctermfg=1 guifg=#f2777a
+      autocmd VimEnter,Colorscheme * :hi SpellCap ctermfg=9 guibg=#6699cc
+    elseif g:colors_name == 'atom'
+      autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  guibg=#21303F ctermbg=3
+      autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=#31404F ctermbg=4
+      highlight NonText guifg=#31404F
+    elseif g:colors_name == 'railscast'
+      highlight NonText guifg=#3F3F3F
+      highlight SpecialKey guifg=#F5F6F6
+      highlight SpecialKey guifg=#6F6F6F
+      autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  guibg=#2B2B2B   ctermbg=3
+    elseif g:colors_name == 'hybrid'
+      let g:hybrid_use_Xresources = 1
+      highlight NonText guibg=#1D1F21
+      autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  guibg=#282A2E   ctermbg=3
+      autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=#1D1F21 ctermbg=4
+      " autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=#313131 ctermbg=4
+    elseif g:colors_name == 'iawriter'
+      set background=light
+      highlight NonText guibg=#f5f6f6
+      autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  guibg=#DBDBDB   ctermbg=3
+      autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd guibg=#F5F6F6 ctermbg=4
+    endif
+
+map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
+
+
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_aggregate_errors = 1
+  let g:syntastic_auto_loc_list = 0
+  let g:syntastic_check_on_open = 1
+  let g:syntastic_check_on_wq = 1
+  let g:syntastic_javascript_checkers = ['eslint']
+  let g:syntastic_ruby_mri_exec = '~/.rbenv/versions/2.2.2/bin/ruby'
+  let g:syntastic_ruby_checkers = ['rubocop']
+  let g:syntastic_haml_checkers = ['haml']
+  let g:syntastic_yaml_checkers = ['jsyaml']
+  let g:syntastic_sass_checkers = ['sass']
+  let g:syntastic_scss_checkers = ['sass','scss-lint']
+
+let g:rspec_runner = "os_x_terminal"
+" let g:rspec_command = "Dispatch rspec --format VimFormatter {spec}"
+let g:rspec_command = "compiler rspec3 | Make {spec}"
+" autocmd BufWritePost * call RunLastSpec()
+
+set errorformat=
+      \F:%f:%l:%m,
+      \P:%f:%l:%m
+autocmd FileType ruby
+      \   compiler rspec3
+
+autocmd User Bundler
+      \ if &makeprg !~# 'bundle' | setl makeprg^=bundle\ exec\  | endif
+set cursorline
+
+set colorcolumn=80
+"allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+"store lots of :cmdline history
+set history=100
+set incsearch   "find the next match as we type the search
+set hlsearch    "hilight searches by default
+set spell
+set spl=en ",pl
+" set number
+syntax on
+" STATUSLINE
+" set showmode    "show current mode down the bottom
+set noshowmode
+" set ruler
+set noruler
+" set laststatus=2
+set laststatus=0
+" set showcmd     "show incomplete cmds down the bottom
+set noshowcmd
+
+" Turn off mac Vim tool bar by default
+if has("gui_running")
+    set guioptions=egmt
+endif
+
+" Set encoding
+set encoding=utf-8
+" Whitespace stuff
+" set nowrap
+set wrap
+set linebreak
+set nolist
+set formatoptions+=l
+" set hidden
+" set list
+" set list listchars=tab:\\ \\ ,trail:·
+set nofoldenable
+set whichwrap+=<,>,h,l " allow backspace and cursor keys to cross line boundaries
+
+" Use the same symbols as TextMate for tabstops and EOLs
+set list listchars=tab:▸\ ,eol:¬,trail:·,extends:❯,precedes:❮
+set showbreak=↪
+
+" if exists('+relativenumber')
+  " set relativenumber
+" endif
+
+" tabs
+set tabstop=2 " use 2 spaces for tab
+set shiftwidth=2 " sets spaces used for indentation
+set softtabstop=2
+set backspace=2
+set expandtab " tab key inserts spaces instead of tabs
+set cindent
+set smartindent
+set smarttab
+set autoindent
+" set cinkeys=0{,0},:,0#,!,!^F
+
+
+set wildignore+=*.png,*.jpg,*.gif,*.ai,*.jpeg,*.psd,*.swp,*.jar,*.zip,*.gem,.DS_Store,log/**,tmp/**,coverage/**,rdoc/**
+
+" Capfile, Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
+au BufRead,BufNewFile {Capfile,Gemfile,Guardfile,Rakefile,Vagrantfile,Thorfile,config.ru}    set ft=ruby
+
+" md, markdown, and mk are markdown and define buffer-local preview
+au BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} call s:setupMarkup()
+
+au BufRead,BufNewFile *.txt call s:setupWrapping()
+
+" Make json highlight as javascript
+au BufNewFile,BufRead *.json set ft=javascript
+au BufNewFile,BufRead *.rdoc set ft=rdoc
+au BufNewFile,BufRead *.pl set ft=prolog
+
+let mapleader = ","
+
+" delete current line
+nmap <D-y> dd
+imap <D-y> <esc>ddi
+nmap <D-S-y> D
+imap <D-S-y> <esc>Di
+
+" duplicate current line
+nmap <D-d> yyp
+imap <D-d> <esc>yypi
+
+inoremap <silent> <Esc> <Esc>`^
+" jump to next new line
+imap <D-Enter> <esc>o
+" backward-enter
+imap <S-Enter> <esc>"ed$O<esc>"ep0i
+" append enter
+imap <S-A-Enter> <esc>ddpkJi
+
+
+" Replicate textmate CMD-[ and CMD-] for indentation
+imap <D-]> <esc>>>i
+imap <D-[> <esc><<i
+nmap <D-[> <<
+nmap <D-]> >>
+vmap <D-[> <gv
+vmap <D-]> >gv
+
+" Replicate Textmate shift arrow/movement in order to select stuff
+nmap <S-up> vk
+vmap <S-up> k
+" nmap <S-k> vk
+" vmap <S-k> k
+
+nmap <S-right> vl
+vmap <S-right> l
+" nmap <S-l> vl
+" vmap <S-l> l
+
+nmap <S-down> vj
+vmap <S-down> j
+" nmap <S-j> vj
+" vmap <S-j> j
+
+nmap <S-left> v
+vmap <S-left> h
+" nmap <S-h> vh
+" vmap <S-h> h
+
+" Use ctrl-[hjkl] to select the active split!
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-l> :wincmd l<CR>
+
+nmap <silent> <c-i> :wincmd K<CR>
+nmap <silent> <c-u> :wincmd J<CR>
+nmap <silent> <c-y> :wincmd H<CR>
+nmap <silent> <c-o> :wincmd L<CR>
+
+
+" _ backups {{{
+if has('persistent_undo')
+  " undo files
+  exec 'set undodir=~/.vim/tmp/undo//'
+  set undofile
+  set undolevels=3000
+  set undoreload=10000
+endif
+
+" backups
+exec 'set backupdir=~/.vim/tmp/backup//'
+" swap files
+exec 'set directory=~/.vim/tmp/swap//'
+set backup
+set noswapfile
+" _ }}}
+
+" colour current column and line
+au WinLeave * set nocursorline
+au WinEnter * set cursorline
+
+" text bubbling
+" Bubble single lines
+nmap <C-Up> [e
+nmap <C-Down> ]e
+" Bubble multiple lines
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
+" Visually select the text that was last edited/pasted
+nmap gV `[v`]
+
+nnoremap <Space> za
+
+nmap <D-0> :lopen<CR>:wincmd k<CR>
+imap <D-0> <esc>:lclose<CR>:wincmd k<CR>i
