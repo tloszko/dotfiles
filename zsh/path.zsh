@@ -1,6 +1,5 @@
 #!/bin/zsh
 
-export PROJECTS=~/Code
 export PATH=/bin:$PATH
 export PATH=/sbin:$PATH
 export PATH=/usr/bin:$PATH
