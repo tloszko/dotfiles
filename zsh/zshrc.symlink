@@ -13,6 +13,7 @@ tevren/gitfast-zsh-plugin
 Tarrasch/zsh-bd
 mafredri/zsh-async
 sindresorhus/pure
+marzocchi/zsh-notify
 EOBUNDLES
 
 # antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
