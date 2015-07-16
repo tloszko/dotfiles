@@ -5,7 +5,6 @@ export PROJECTS=~/Code
 
 source $HOME/antibody/antibody.zsh
 
-# mfaerevaag/wd #needed only once, what to do?
 antibody bundle <<EOBUNDLES
 zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-completions
@@ -14,6 +13,7 @@ Tarrasch/zsh-bd
 mafredri/zsh-async
 sindresorhus/pure
 marzocchi/zsh-notify
+rupa/z
 EOBUNDLES
 
 # antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
@@ -52,12 +52,6 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' insert-tab pending
 
 unset config_files
-
-
-# meh:
-wd() {
-  . /Users/edhell/bin/wd/wd.sh
-}
 
 if [[ -a ~/.localrc ]]
 then

@@ -16,7 +16,7 @@ setopt local_traps
 
 setopt correct
 setopt complete_in_word
-setopt complete_aliases
+# setopt complete_aliases # we wan't to autocomplete in aliases.
 setopt ignore_eof
 unsetopt nomatch
 
