@@ -6,10 +6,10 @@ export PROJECTS=~/Code
 source $HOME/antibody/antibody.zsh
 
 antibody bundle <<EOBUNDLES
+zsh-users/zsh-history-substring-search
 zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-completions
 tevren/gitfast-zsh-plugin
-Tarrasch/zsh-bd
 mafredri/zsh-async
 sindresorhus/pure
 marzocchi/zsh-notify
@@ -57,3 +57,6 @@ if [[ -a ~/.localrc ]]
 then
   source ~/.localrc
 fi
+wd() {
+  . /Users/edhell/bin/wd/wd.sh
+}
