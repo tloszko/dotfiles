@@ -44,7 +44,7 @@ zle -N newtab
 
 
 export ARCHFLAGS="-arch x86_64"
-export EDITOR='atom'
+export EDITOR='atom-beta'
 export GIT_EDITOR='mvim'
 # export SSL_CERT_FILE="/usr/local/share/ca-bundle.crt"
 
