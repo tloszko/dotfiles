@@ -1,1 +1,2 @@
-export HOMEBREW_INSTALL_BADGE="🤖"
+export HOMEBREW_INSTALL_BADGE="👾"
+export HOMEBREW_NO_ANALYTICS="yup"
