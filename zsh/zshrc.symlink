@@ -1,22 +1,36 @@
 #!/bin/zsh
-
+# echo "zshrc running"
 export ZSH=$HOME/.dotfiles
 export PROJECTS=~/Code
 
-source $HOME/antibody/antibody.zsh
+# source $HOME/antibody/antibody.zsh
+source $HOME/.zplug/init.zsh
 
-antibody bundle <<EOBUNDLES
-zsh-users/zsh-history-substring-search
-zsh-users/zsh-syntax-highlighting
-zsh-users/zsh-completions
-tevren/gitfast-zsh-plugin
-mafredri/zsh-async
-sindresorhus/pure
-marzocchi/zsh-notify
-rupa/z
-EOBUNDLES
+# Make sure to use double quotes
+zplug "marzocchi/zsh-notify"
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-history-substring-search"
+zplug "zsh-users/zsh-completions"
+# zplug "tevren/gitfast-zsh-plugin"
+zplug "mafredri/zsh-async"
+zplug "sindresorhus/pure"
+# zplug "Vifon/deer"
+# PURE_PROMPT_SYMBOL="⎇"
+PURE_CMD_MAX_EXEC_TIME=1
+# PURE_GIT_PULL=0
 
-# antigen theme https://github.com/caiogondim/bullet-train-oh-my-zsh-theme bullet-train
+if ! zplug check; then
+    zplug install
+fi
+
+zstyle ':notify:*' error-sound "Glass"
+zstyle ':notify:*' success-sound "default"
+zstyle ':notify:*' command-complete-timeout 5
+zstyle ':notify:*' error-icon "https://media3.giphy.com/media/10ECejNtM1GyRy/200_s.gif"
+zstyle ':notify:*' error-title "wow such #fail"
+zstyle ':notify:*' success-icon "https://s-media-cache-ak0.pinimg.com/564x/b5/5a/18/b55a1805f5650495a74202279036ecd2.jpg"
+zstyle ':notify:*' success-title "very #success. wow"
+
 
 
 # all of our zsh files
@@ -35,6 +49,10 @@ do
   source $file
 done
 
+# source plugins and add commands to the PATH
+zplug load
+
+
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
 compinit
@@ -48,13 +66,16 @@ done
 
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' insert-tab pending
+zstyle ':completion:*' menu select
+zstyle ':completion:*:*:kill:*:processes' command 'ps --forest -e -o pid,user,tty,cmd'
 
 unset config_files
+
 
 if [[ -a ~/.localrc ]]
 then
   source ~/.localrc
 fi
-wd() {
-  . /Users/edhell/bin/wd/wd.sh
-}
+
+
+ssh-add -A &>/dev/null

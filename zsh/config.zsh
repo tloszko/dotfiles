@@ -32,10 +32,9 @@ HISTFILE=~/.zhistory
 HISTSIZE=4096
 SAVEHIST=4096
 
-PURE_CMD_MAX_EXEC_TIME=1
-# PURE_GIT_PULL=0
 
 
+autoload run-help
 # lazy cd
 setopt autocd
 
