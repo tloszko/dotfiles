@@ -4,10 +4,11 @@ export ZSH=$HOME/.dotfiles
 export PROJECTS=~/Code
 
 # source $HOME/antibody/antibody.zsh
-source $HOME/.zplug/init.zsh
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
 
 # Make sure to use double quotes
-zplug "marzocchi/zsh-notify"
+# zplug "marzocchi/zsh-notify"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-completions"
