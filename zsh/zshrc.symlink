@@ -2,27 +2,48 @@
 # echo "zshrc running"
 export ZSH=$HOME/.dotfiles
 export PROJECTS=~/Code
+# zmodload zsh/zprof
 
-# source $HOME/antibody/antibody.zsh
-export ZPLUG_HOME=/usr/local/opt/zplug
-source $ZPLUG_HOME/init.zsh
-
-# Make sure to use double quotes
-# zplug "marzocchi/zsh-notify"
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-completions"
-# zplug "tevren/gitfast-zsh-plugin"
-zplug "mafredri/zsh-async"
-zplug "sindresorhus/pure"
-# zplug "Vifon/deer"
 # PURE_PROMPT_SYMBOL="⎇"
 PURE_CMD_MAX_EXEC_TIME=1
 # PURE_GIT_PULL=0
 
-if ! zplug check; then
-    zplug install
+
+if [[ ! -f $HOME/.zplugin/bin/zplugin.zsh ]]; then
+	git clone https://github.com/psprint/zplugin $HOME/.zplugin/bin
+	zcompile $HOME/.zplugin/bin/zplugin.zsh
 fi
+source $HOME/.zplugin/bin/zplugin.zsh
+
+zplugin light zsh-users/zsh-history-substring-search
+zplugin light Tarrasch/zsh-bd
+
+zplugin ice from"gh-r" as"program"
+zplugin load junegunn/fzf-bin
+
+zplugin ice pick"async.zsh" src"pure.zsh"
+zplugin light sindresorhus/pure
+
+zplugin light zsh-users/zsh-completions
+
+zplugin ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh" nocompile'!'
+zplugin light trapd00r/LS_COLORS
+# zplugin creinstall %HOME/my_completions
+
+
+zplugin ice wait"0b" lucid; zplugin load zdharma/history-search-multi-word
+
+# zplugin ice silent wait!1; zplugin light zdharma/fast-syntax-highlighting
+zplugin ice wait"0a" lucid atinit"ZPLGM[COMPINIT_OPTS]='-i' zpcompinit; zpcdreplay"
+    zplugin light zdharma/fast-syntax-highlighting
+
+
+zplugin ice silent wait:1 atload:_zsh_autosuggest_start; zplugin light zsh-users/zsh-autosuggestions
+export ZSH_AUTOSUGGEST_USE_ASYNC=1
+export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
+autoload -Uz _zplugin
+(( ${+_comps} )) && _comps[zplugin]=_zplugin
 
 zstyle ':notify:*' error-sound "Glass"
 zstyle ':notify:*' success-sound "default"
@@ -51,24 +72,25 @@ do
 done
 
 # source plugins and add commands to the PATH
-zplug load
-
+# zplug load
 
 # initialize autocomplete here, otherwise functions won't be loaded
-autoload -U compinit
-compinit
+# autoload -U compinit
+# compinit
+autoload -Uz compinit
+if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${ZDOTDIR:-$HOME}/.zcompdump) ]; then
+  compinit
+else
+  compinit -C
+fi
 
-
-# load every completion after autocomplete loads
-for file in ${(M)config_files:#*/completion.zsh}
-do
-  source $file
-done
 
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' insert-tab pending
 zstyle ':completion:*' menu select
 zstyle ':completion:*:*:kill:*:processes' command 'ps --forest -e -o pid,user,tty,cmd'
+zstyle ':completion:*' group-name '' # group results by category
+zstyle ':completion:::::' completer _expand _complete _ignored _approximate # enable approximate matches for completion
 
 unset config_files
 
@@ -80,3 +102,4 @@ fi
 
 
 ssh-add -A &>/dev/null
+# zprof
