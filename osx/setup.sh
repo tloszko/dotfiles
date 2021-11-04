@@ -28,10 +28,10 @@ sudo nvram SystemAudioVolume=" "
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
 # Disable smart quotes as they’re annoying when typing code
-# defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
 # Disable smart dashes as they’re annoying when typing code
-# defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
 # SSD SETTINGS
 # Disable local Time Machine snapshots

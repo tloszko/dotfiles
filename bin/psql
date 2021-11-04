@@ -1,0 +1,15 @@
+#!/bin/bash
+
+orig_params="$@"
+volmount=""
+while [[ $# -gt 1 ]]
+do
+    if [ "-f" = "$1" ]
+    then
+        volmount="-v $2:$2"
+        shift
+    fi
+    shift
+done
+
+docker run -it --rm $volmount --net=host postgres:latest psql -h localhost -U postgres $orig_params
