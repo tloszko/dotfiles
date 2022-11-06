@@ -1,7 +1,7 @@
 #!/bin/zsh
 # echo "zshrc running"
-export ZSH=$HOME/.dotfiles
-export PROJECTS=~/Code
+export ZSH=$HOME/code/dotfiles
+export PROJECTS=~/code
 # zmodload zsh/zprof
 
 # PURE_PROMPT_SYMBOL="⎇"
@@ -9,41 +9,49 @@ PURE_CMD_MAX_EXEC_TIME=1
 # PURE_GIT_PULL=0
 
 
-if [[ ! -f $HOME/.zplugin/bin/zplugin.zsh ]]; then
-	git clone https://github.com/psprint/zplugin $HOME/.zplugin/bin
-	zcompile $HOME/.zplugin/bin/zplugin.zsh
+# if [[ ! -f $HOME/.zplugin/bin/zplugin.zsh ]]; then
+	# git clone https://github.com/psprint/zprofile $HOME/.zplugin/bin
+	# zcompile $HOME/.zplugin/bin/zplugin.zsh
+# fi
+# source $HOME/.zplugin/bin/zplugin.zsh
+
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+  git clone https://github.com/zdharma-continuum/zinit.git ~/.zinit/bin
+  zcompile $HOME/.zinit/bin/zinit.zsh
 fi
-source $HOME/.zplugin/bin/zplugin.zsh
 
-zplugin light zsh-users/zsh-history-substring-search
-zplugin light Tarrasch/zsh-bd
-
-zplugin ice from"gh-r" as"program"
-zplugin load junegunn/fzf-bin
-
-zplugin ice pick"async.zsh" src"pure.zsh"
-zplugin light sindresorhus/pure
-
-zplugin light zsh-users/zsh-completions
-
-zplugin ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh" nocompile'!'
-zplugin light trapd00r/LS_COLORS
-# zplugin creinstall %HOME/my_completions
+source ~/.zinit/bin/zinit.zsh
 
 
-zplugin ice wait"0b" lucid; zplugin load zdharma/history-search-multi-word
+zinit light zsh-users/zsh-history-substring-search
+zinit light Tarrasch/zsh-bd
 
-# zplugin ice silent wait!1; zplugin light zdharma/fast-syntax-highlighting
-zplugin ice wait"0a" lucid atinit"ZPLGM[COMPINIT_OPTS]='-i' zpcompinit; zpcdreplay"
-    zplugin light zdharma/fast-syntax-highlighting
+zinit ice from"gh-r" as"program"
+zinit load junegunn/fzf-bin
+
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
+
+zinit light zsh-users/zsh-completions
+
+zinit ice atclone"dircolors -b LS_COLORS > c.zsh" atpull'%atclone' pick"c.zsh" nocompile'!'
+zinit light trapd00r/LS_COLORS
+# zinit creinstall %HOME/my_completions
 
 
-zplugin ice silent wait:1 atload:_zsh_autosuggest_start; zplugin light zsh-users/zsh-autosuggestions
+zinit ice wait"0b" lucid; zinit load zdharma-continuum/history-search-multi-word
+
+# zinit ice silent wait!1; zinit light zdharma-continuum/fast-syntax-highlighting
+zinit ice wait"0a" lucid atinit"ZINIT[COMPINIT_OPTS]='-i' zpcompinit; zpcdreplay"
+  zinit light zdharma-continuum/fast-syntax-highlighting
+
+
+zinit ice silent wait:1 atload:_zsh_autosuggest_start; zinit light zsh-users/zsh-autosuggestions
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
-autoload -Uz _zplugin
-(( ${+_comps} )) && _comps[zplugin]=_zplugin
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
 
 zstyle ':notify:*' error-sound "Glass"
 zstyle ':notify:*' success-sound "default"

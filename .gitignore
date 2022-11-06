@@ -1,3 +1,4 @@
 .DS_Store
 dns-block/*.txt
 dns-block/*.tmp
+dns-block/*.hosts
