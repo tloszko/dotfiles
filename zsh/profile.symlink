@@ -1,4 +1,4 @@
 #!/bin/zsh
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-chruby ruby-2.7.4
+source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+chruby ruby-2.7.7
 export PATH="/usr/local/opt/openjdk@8/bin:$PATH"

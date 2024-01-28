@@ -13,4 +13,8 @@ export PATH=/usr/local/sbin:$PATH
 export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
 # export PATH=$(brew --prefix ansible@2.9)/bin:$PATH
 
-source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+
+
+source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+source "$(brew --prefix)/share/google-cloud-sdk/completion.zsh.inc"
+export PATH="/opt/homebrew/bin:$PATH"
