@@ -1,6 +1,8 @@
 #!/bin/zsh
-source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
-chruby ruby-2.7.7
+# source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+# chruby ruby-2.7.7
+eval "$(/opt/homebrew/opt/rbenv/bin/rbenv init - zsh)"
+
 export PATH="/usr/local/opt/openjdk@8/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
@@ -8,3 +10,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
+rbenv shell 2.7.5
+# source <(fzf --zsh)
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

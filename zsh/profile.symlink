@@ -1,4 +1,9 @@
 #!/bin/zsh
-source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
-chruby ruby-2.7.7
+# source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+# source /opt/homebrew/opt/asdf/libexec/asdf.sh
+# chruby ruby-2.7.5
+eval "$(/opt/homebrew/opt/rbenv/bin/rbenv init - zsh)"
+# source <(fzf --zsh)
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+rbenv shell 2.7.5
 export PATH="/usr/local/opt/openjdk@8/bin:$PATH"

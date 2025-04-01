@@ -41,7 +41,8 @@ setopt autocd
 zle -N newtab
 
 
-export ARCHFLAGS="-arch x86_64"
+export SDKROOT=$(xcrun --show-sdk-path)
+export ARCHFLAGS="-arch arm64"
 export EDITOR='atom-beta'
 export GIT_EDITOR='atom-beta --wait'
 # export SSL_CERT_FILE="/usr/local/share/ca-bundle.crt"

@@ -10,6 +10,8 @@ export PATH=/usr/bin:$PATH
 export PATH=/usr/sbin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
+export PATH=~/.local/bin:$PATH
+
 export PATH=$(brew --prefix coreutils)/libexec/gnubin:$PATH
 # export PATH=$(brew --prefix ansible@2.9)/bin:$PATH
 

@@ -21,10 +21,12 @@ zinit light zsh-users/zsh-history-substring-search
 zinit light Tarrasch/zsh-bd
 
 zinit ice from"gh-r" as"program"
-zinit load junegunn/fzf-bin
+# zinit load junegunn/fzf-bin
 
 zinit ice pick"async.zsh" src"pure.zsh"
 zinit light sindresorhus/pure
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 zinit light zsh-users/zsh-completions
 
@@ -105,3 +107,14 @@ fi
 
 ssh-add -A &>/dev/null
 # zprof
+if [ -f "/Users/tloszko/.config/fabric/fabric-bootstrap.inc" ]; then . "/Users/tloszko/.config/fabric/fabric-bootstrap.inc"; fi
+
+fpath=(/Users/tloszko/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+
+if [ -f ~/.fzf.zsh ]; then
+  source ~/.fzf.zsh
+fi
+zle -N fzf-history-widget
+bindkey '^R' fzf-history-widget
